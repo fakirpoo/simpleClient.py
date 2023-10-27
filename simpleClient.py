@@ -51,7 +51,7 @@ def local_external_DNS_output(question_type):
         
         
 def exfiltrate_info(???,???): # testing method for part 2
-    data = query_local_dns_server(???,???)
+    data = query_local_dns_server(domain_name,question_type)
     return data 
 
         
