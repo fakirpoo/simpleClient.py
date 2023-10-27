@@ -11,26 +11,26 @@ domainList  = ['example.com.','safebank.com','google.com','nyu.edu','legitsite.c
 # Define a function to query the local DNS server for the IP address of a given domain name
 def query_local_dns_server(domain,question_type):
     resolver = dns.resolver.Resolver()
-    resolver.nameservers = [????]
-    answers = resolver.resolve(????, ????) # provide the domain and question_type
+    resolver.nameservers = [local_host_ip]
+    answers = resolver.resolve(domain, question_type) # provide the domain and question_type
 
-    ip_address = answers[??].to_text()
+    ip_address = answers[0].to_text()
     return ip_address   
     
 # Define a function to query a public DNS server for the IP address of a given domain name
 def query_dns_server(domain,question_type):
     resolver = dns.resolver.Resolver()
-    resolver.nameservers = [????]
+    resolver.nameservers = [real_name_server]
     answers = resolver.resolve(domain, question_type) # provide the domain and question_type
 
-    ip_address = answers[??].to_text()
+    ip_address = answers[0].to_text()
     return ip_address
     
 # Define a function to compare the results from the local and public DNS servers for each domain name in the list
 def compare_dns_servers(domainList,question_type):
     for domain_name in domainList:
-        local_ip_address = ????(domain_name,question_type)
-        public_ip_address = ????(domain_name,question_type)
+        local_ip_address = query_local_dns_server(domain_name,question_type)
+        public_ip_address = query_dns_server(domain_name,question_type)
         if local_ip_address != public_ip_address:
             return False
     return True    
